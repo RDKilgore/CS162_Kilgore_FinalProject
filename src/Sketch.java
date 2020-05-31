@@ -4,10 +4,14 @@ import java.util.Collections;
 
 public class Sketch extends PApplet {
     Zombie zombie;
-    Zombie zombieSquad;
-    Human human;
+    boolean collision = false;
     ArrayList<Zombie> zombies = new ArrayList<Zombie>();
     ArrayList<Human> humans = new ArrayList<Human>();
+    Human h = new Human(this,200,400);
+    Zombie z = new Zombie(this,200,200);
+int humanCount = 0;
+int zombieCount = 0;
+
 
 
     public void settings() {
@@ -15,42 +19,95 @@ public class Sketch extends PApplet {
     }
 
     public void setup() {
-        background(250);
-        //Particle q = new Particle(this);
 
-        Human h = new Human(100, 100, this);
-        Zombie z = new Zombie(700, 700, this);
-        Zombie z2 = new Zombie(10, 20, this);
-        Particle p = new Particle(700, 200, this);
-        ParticleSystem ps = new ParticleSystem(700,200,this);
-        h.displayTypeCount();
-        displayZombies(zombies);
-        z.displayTypeCount();
-        ps.update();
-        ps.draw();
+//        Person p = new Person(this);
+        Human h = new Human(this,200,200);
+        Zombie z = new Zombie(this,200,400);
+        addZombies(zombies);
+        addHumans(humans);
+        //z.display();
+//        h.display();
+//        p.display();
 
-        h.draw();
-        h.move();
-        z.draw();
-        z.move();
     }
 
 
     public void draw() {
+        background(250);
+        z.display();
+        z.move();
+        z.walk();
+        h.display();
+        h.move();
+        h.walk();
+        collision();
+
+        displayZombies(zombies);
+        displayHumans(humans);
+
+
+
     }
 
-    private void add(ArrayList<Zombie> zombies) {
-        for (int i = 0; i < 10; ++i) {
-            Zombie temp = new Zombie((int) random(0, 1000), (int) random(0, 1000), this);
+    private void addZombies(ArrayList<Zombie> zombies) {
+        for (int i = 0; i < 100; ++i) {
+            Zombie temp = new Zombie(this,(int)random(30,970),(int)random(200,300));
             zombies.add(temp);
-            System.out.println("added");
+            zombieCount++;
+            System.out.println("Zombie added");
         }
     }
-        private void displayZombies (ArrayList<Zombie> zombies) {
-            for (Zombie zombie : zombies) {
-                zombie.draw();
-                System.out.println(zombie);
-                zombie.draw(this);
+    public void collision(){
+        if(h.intersects(z)) {
+            System.out.println("collision");
+            h.yVelocity *= -1;
+            h.colour = 0;
+            z.yVelocity *= -1;
+        }
+    }
+    private void addHumans(ArrayList<Human> humans) {
+        for (int i = 0; i < 100; ++i) {
+            Human temp = new Human(this,(int)random(30,970),(int)random(600,700));
+            humans.add(temp);
+            humanCount++;
+            System.out.println("Human added");
+        }
+    }
+    private void displayZombies (ArrayList<Zombie> zombies) {
+        for (Zombie zombie : zombies) {
+            zombie.display();
+            displayTypeCount();
+            zombie.move();
+            zombie.walk();
+            collision();
             }
+    }
+
+//    public boolean checkCollisionWithZombie(Zombie zombie){
+//        double xDiff = humans.x - zombie.getX();
+//        double yDiff = this.y - zombie.getY();
+//        double distance =Math.sqrt((Math.pow(xDiff,2) + Math.pow(yDiff,2)));
+//        System.out.println("checking");;
+//        return distance < (radius + zombie.getRadius());
+//    }
+
+    private void displayHumans (ArrayList<Human> humans) {
+        for (Human human : humans) {
+            human.display();
+            displayTypeCount();
+            human.move();
+            human.walk();
+            collision();
+            //System.out.println(zombie);
         }
     }
+    public void displayTypeCount() {
+        this.textSize(30);
+        this.fill(0);
+        this.text("Zombie Count: " + zombieCount, 400 ,150);
+        this.text("Human Count: " + humanCount, 400 ,650);
+    }
+//    public void collisionDetection(Zombie zombie){
+//        if (dist()
+//    }
+}
