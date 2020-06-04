@@ -3,34 +3,37 @@ import processing.core.PApplet;
 import java.util.ArrayList;
 
 public class Person{
-    final private double ACCELERATION = 0.2;
-    int colour, choice;
-    int x,y,g,b;
-    float xVelocity;
-    double yVelocity;
-    float radius, health;
-    PApplet personSketch;
-    int personCount;
+    protected int colour, choice;
+    private float x,y;
+    private float xVelocity;
+    protected float yVelocity;
+    private float radius;
+    protected int stregth;
+    protected PApplet personSketch;
+    private int personCount;
 
 
-    Person(PApplet sketch, int x, int y){
+    Person(PApplet sketch, float x, float y){
         this.x = x;
         this.y = y;
         personSketch = sketch;
-        setRadius(personSketch.random(10,35));
+        setRadius(personSketch.random(10,25));
         this.colour = sketch.color(0);
         personCount++;
+        stregth = (int) personSketch.random(4);
     }
-    public boolean intersects(Zombie other){
-        var distance = personSketch.dist(this.x,this.y,other.x,other.y);
-        if(distance <= this.radius + other.radius){
-            return true;
-        } else  return false;
-    }
+
+
+    //could just return the statement.
+    public boolean intersects(Person other){
+        float distance = personSketch.dist(this.x,this.y,other.x,other.y);
+        return distance <= this.radius + other.radius;
+        }
+
 
     public void display() {
         personSketch.fill(colour);
-        personSketch.circle(this.x, this.y, radius);
+        personSketch.circle(this.x, this.y, radius*2);
     }
 
     public void move(){
@@ -49,18 +52,18 @@ public class Person{
         }
     }
 
-    public int getX() {
+    public float getX() {
         return x;
     }
 
-    public void setX(int x) {
+    public void setX(float x) {
         this.x = x;
     }
-    public int getY() {
+    public float getY() {
         return y;
     }
 
-    public void setY(int y) {
+    public void setY(float y) {
         this.y = y;
     }
 
@@ -70,6 +73,14 @@ public class Person{
 
     public void setRadius(float radius) {
         this.radius = radius;
+    }
+
+    public void setStregth(int stregth) {
+        this.stregth = stregth;
+    }
+
+    public int getStregth() {
+        return stregth;
     }
 
     public float getxVelocity() {
@@ -84,12 +95,13 @@ public class Person{
         return yVelocity;
     }
 
-    public void setyVelocity(double yVelocity) {
+    public void setyVelocity(float yVelocity) {
         this.yVelocity = yVelocity;
     }
 
     public int getTotalCount() {
         return personCount;
     }
+
 
 }
