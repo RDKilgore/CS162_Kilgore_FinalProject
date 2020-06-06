@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="sound">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/../../../../../Program Files/processing-3.5.4/modes/java/reference/libraries/sound" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

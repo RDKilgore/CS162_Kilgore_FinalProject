@@ -1,7 +1,5 @@
 import processing.core.PApplet;
 
-import java.util.ArrayList;
-
 public class Person{
     protected int colour, choice;
     private float x,y;
@@ -23,13 +21,10 @@ public class Person{
         stregth = (int) personSketch.random(4);
     }
 
-
-    //could just return the statement.
-    public boolean intersects(Person other){
+    public boolean touching(Person other){
         float distance = personSketch.dist(this.x,this.y,other.x,other.y);
         return distance <= this.radius + other.radius;
         }
-
 
     public void display() {
         personSketch.fill(colour);
@@ -39,6 +34,7 @@ public class Person{
     public void move(){
         y+=yVelocity;
     }
+
     public void walk(){
         choice = (int) this.personSketch.random(4);
         if(choice == 0){
@@ -65,6 +61,13 @@ public class Person{
 
     public void setY(float y) {
         this.y = y;
+    }
+
+    public int getColour() {
+        return colour;
+    }
+    public void setColour(int colour){
+        this.colour = colour;
     }
 
     public float getRadius() {
