@@ -1,3 +1,7 @@
+/**
+ * This is the particle system class. This is used when a human kills a zombie.
+ */
+
 import processing.core.PApplet;
 
 import java.util.ArrayList;

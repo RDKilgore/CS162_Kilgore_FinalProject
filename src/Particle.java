@@ -1,3 +1,6 @@
+/**
+ * This is the particle class and it is used by the particle system to create the particles held within the system.
+ */
 import processing.core.PApplet;
 class Particle {
 

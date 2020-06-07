@@ -1,14 +1,20 @@
+/**
+ * This is the Person class. This class is used to make all "bodys" in this simulation and sets variables accordingly.
+ *
+ */
+
 import processing.core.PApplet;
 
-public class Person{
+public abstract class Person{
     protected int colour, choice;
-    private float x,y;
+    protected float x,y;
     private float xVelocity;
     protected float yVelocity;
     private float radius;
-    protected int stregth;
+    protected int strength;
     protected PApplet personSketch;
     private int personCount;
+    private String shootGuess;
 
 
     Person(PApplet sketch, float x, float y){
@@ -18,13 +24,14 @@ public class Person{
         setRadius(personSketch.random(10,25));
         this.colour = sketch.color(0);
         personCount++;
-        stregth = (int) personSketch.random(4);
+        strength = (int) personSketch.random(4);
     }
 
     public boolean touching(Person other){
         float distance = personSketch.dist(this.x,this.y,other.x,other.y);
         return distance <= this.radius + other.radius;
         }
+
 
     public void display() {
         personSketch.fill(colour);
@@ -78,27 +85,27 @@ public class Person{
         this.radius = radius;
     }
 
-    public void setStregth(int stregth) {
-        this.stregth = stregth;
+    public void setStrength(int strength) {
+        this.strength = strength;
     }
 
-    public int getStregth() {
-        return stregth;
+    public int getStrength() {
+        return strength;
     }
 
-    public float getxVelocity() {
+    public float getXVelocity() {
         return xVelocity;
     }
 
-    public void setxVelocity(float xVelocity) {
+    public void setXVelocity(float xVelocity) {
         this.xVelocity = xVelocity;
     }
 
-    public double getyVelocity() {
+    public double getYVelocity() {
         return yVelocity;
     }
 
-    public void setyVelocity(float yVelocity) {
+    public void setYVelocity(float yVelocity) {
         this.yVelocity = yVelocity;
     }
 
@@ -106,5 +113,8 @@ public class Person{
         return personCount;
     }
 
-
+    // selects the guess between rock paper scissor and assigns it to a variable.
+    public abstract String rockPaperScissorGuessSelector();
 }
+
+
