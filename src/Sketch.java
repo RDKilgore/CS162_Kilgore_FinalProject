@@ -128,6 +128,9 @@ public class Sketch extends PApplet {
         for (ParticleSystem p : particles) {
             p.update();
             p.draw();
+            if(p.x >= atBottom()){
+
+            }
         }
     }
 
@@ -150,6 +153,10 @@ public class Sketch extends PApplet {
                     zombieCount--;
                     ParticleSystem p = new ParticleSystem((int) tempZombieX, (int) tempZombieY, this);
                     p1.add(p);
+                    if(p.x >= atBottom()){
+                        p1.remove(p);
+                        System.out.println("particles removed");
+                    }
                 } else if (collisionCheck(h1, z1) && (h1.strength == 0)) {
                     h1.colour = color(random(59, 42), random(156, 242), random(17, 99),150);
                     h1.setYVelocity((float) .5);
@@ -238,6 +245,10 @@ public class Sketch extends PApplet {
         }
         Person person = new Alien(this, (int) random(30, 970), (int) random(600, 700));
         return person;
+    }
+    float atBottom (){
+        float y;
+        return y =+ 800;
     }
 }
 
